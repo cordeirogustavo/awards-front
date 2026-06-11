@@ -24,7 +24,7 @@ export function NotFoundComponent() {
 				<Feedback.Actions>
 					<button
 						type="button"
-						className="w-full text-white bg-zinc-300 rounded-sm h-8"
+						className="w-full text-white bg-zinc-700 rounded-sm h-8 cursor-pointer"
 						onClick={() => router.history.back()}
 					>
 						Back
