@@ -1,11 +1,13 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
+import { NotFoundComponent } from "./components";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
 	routeTree,
 	defaultPreload: "intent",
 	scrollRestoration: true,
+	defaultNotFoundComponent: NotFoundComponent,
 });
 
 declare module "@tanstack/react-router" {
@@ -14,7 +16,11 @@ declare module "@tanstack/react-router" {
 	}
 }
 
-const rootElement = document.getElementById("app")!;
+const rootElement = document.getElementById("app");
+
+if (!rootElement) {
+	throw new Error('Element with id "app" not found');
+}
 
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
