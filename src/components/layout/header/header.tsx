@@ -1,5 +1,6 @@
 import { ListIcon } from "@phosphor-icons/react";
 import type React from "react";
+import { config } from "@/config/config";
 import { useSidebar } from "@/context";
 
 export const Header: React.FC = () => {
@@ -15,6 +16,7 @@ export const Header: React.FC = () => {
 							className="cursor-pointer text-white"
 							onClick={toggleSidebar}
 						/>
+						<span className="text-xl text-white">{config.appName}</span>
 					</div>
 				</div>
 			</nav>
