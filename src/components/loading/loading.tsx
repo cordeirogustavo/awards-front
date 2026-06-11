@@ -10,7 +10,7 @@ export const Loading: React.FC = () => {
 			<div className="flex min-h-screen flex-col items-center justify-center px-4 pt-4 pb-20 text-center">
 				<SpinnerGapIcon className="h-28 w-28 animate-spin" />
 				<p className="mt-8 text-center font-semibold text-2xl text-white">
-					Carregando ...
+					Loading ...
 				</p>
 			</div>
 		</div>
