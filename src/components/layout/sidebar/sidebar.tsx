@@ -3,7 +3,7 @@ import type React from "react";
 import { useSidebar } from "@/context";
 
 export const Sidebar: React.FC = () => {
-	const { open } = useSidebar();
+	const { open, handleNavigate } = useSidebar();
 	const sidebarItems = [
 		{
 			label: "Dashboard",
@@ -17,10 +17,9 @@ export const Sidebar: React.FC = () => {
 
 	return (
 		<aside
-			className={`
-				bg-zinc-100 transition-transform duration-100 ease-in-out w-full sm:w-80
-   			${open ? "translate-x-0" : "-translate-x-full"}
-			`}
+			className={`bg-zinc-100 w-full sm:w-80 sm:relative
+    	${open ? "block" : "hidden"}
+  	`}
 		>
 			<nav className="flex flex-col gap-1 p-2">
 				{sidebarItems.map((item) => (
@@ -31,6 +30,7 @@ export const Sidebar: React.FC = () => {
 						activeProps={{
 							className: "bg-zinc-200 text-blue-400",
 						}}
+						onClick={handleNavigate}
 					>
 						<span className="text-2xl">{item.label}</span>
 					</Link>

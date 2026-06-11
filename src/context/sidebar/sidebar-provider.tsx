@@ -19,9 +19,15 @@ export function SidebarProvider({ children }: PropsWithChildren) {
 		setOpen((prev) => !prev);
 	}, []);
 
+	const handleNavigate = React.useCallback(() => {
+		if (window.innerWidth < 640) {
+			setOpen(false);
+		}
+	}, []);
+
 	const contextValue = React.useMemo<SidebarContextProps>(
-		() => ({ open, toggleSidebar }),
-		[open, toggleSidebar],
+		() => ({ open, toggleSidebar, handleNavigate }),
+		[open, toggleSidebar, handleNavigate],
 	);
 
 	return (

@@ -3,6 +3,7 @@ import React from "react";
 export type SidebarContextProps = {
 	open: boolean;
 	toggleSidebar: () => void;
+	handleNavigate: () => void;
 };
 
 export const SidebarContext = React.createContext<SidebarContextProps | null>(
