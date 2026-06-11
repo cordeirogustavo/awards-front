@@ -1,6 +1,8 @@
 import React from "react";
 import {
+	type ProducerWithInterval,
 	type StudioCountPerWin,
+	useFindMaxMinWinIntervalForProducers,
 	useFindStudiosWithWinCount,
 	useFindYearsWithMultipleWinners,
 	type YearWithMultipleWinners,
@@ -9,8 +11,11 @@ import {
 export interface IDashboardHooks {
 	yearsWithMultipleWinnersData: YearWithMultipleWinners[];
 	studiosWithWinCountData: StudioCountPerWin[];
+	maxIntervalProducersData: ProducerWithInterval[];
+	minIntervalProducersData: ProducerWithInterval[];
 	isYearsWithMultipleWinnersLoading: boolean;
 	isStudiosWithWinLoading: boolean;
+	isMaxMinProducersLoading: boolean;
 }
 
 export const useDashboardPage = (): IDashboardHooks => {
@@ -26,6 +31,11 @@ export const useDashboardPage = (): IDashboardHooks => {
 			client: { skipLoading: true },
 		});
 
+	const { data: maxMinProducers, isLoading: isMaxMinProducersLoading } =
+		useFindMaxMinWinIntervalForProducers({
+			client: { skipLoading: true },
+		});
+
 	const topStudios = React.useMemo(() => {
 		const studios = studiosWithWinCount?.studios ?? [];
 		return [...studios]
@@ -36,7 +46,10 @@ export const useDashboardPage = (): IDashboardHooks => {
 	return {
 		yearsWithMultipleWinnersData: yearsWithMultipleWinners?.years ?? [],
 		studiosWithWinCountData: topStudios,
+		maxIntervalProducersData: maxMinProducers?.max ?? [],
+		minIntervalProducersData: maxMinProducers?.min ?? [],
 		isYearsWithMultipleWinnersLoading,
 		isStudiosWithWinLoading,
+		isMaxMinProducersLoading,
 	};
 };

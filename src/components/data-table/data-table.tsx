@@ -29,6 +29,7 @@ interface IDataTableProps<TData, TValue> {
 	searchBy?: string;
 	actions?: IDataTableRowAction<TData>[];
 	isLoading?: boolean;
+	showRecordsCount?: boolean;
 }
 
 export interface ITableItens<TData> {
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
 	searchBy,
 	actions,
 	isLoading = false,
+	showRecordsCount = false,
 }: IDataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -144,9 +146,11 @@ export function DataTable<TData, TValue>({
 				recordCount={rows.length}
 				headers={table.getFlatHeaders()}
 			/>
-			<RecordsCount
-				text={`${table.getFilteredRowModel().rows.length} of ${data.length} records`}
-			/>
+			{showRecordsCount && (
+				<RecordsCount
+					text={`${table.getFilteredRowModel().rows.length} of ${data.length} records`}
+				/>
+			)}
 		</div>
 	);
 }

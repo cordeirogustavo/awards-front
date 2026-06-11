@@ -14,7 +14,7 @@ export function ListHeader<TData>({
 	searchBy,
 }: IListHeaderProps<TData>) {
 	return (
-		<div className="mt-8 flex flex-row items-center gap-4 sm:items-end sm:justify-between">
+		<div className="mt-2 flex flex-row items-center gap-4 sm:items-end sm:justify-between">
 			<span className="text-2xl text-bold text-zinc-600">{title}</span>
 			{searchBy && (
 				<div className="relative w-full sm:max-w-sm">

@@ -22,7 +22,7 @@ export function DesktopListLoading<TData>({
 		(_, i) => `skeleton-row-${i}`,
 	);
 	return (
-		<div className="relative min-h-50 flex-1 overflow-auto">
+		<div className="relative min-h-20 flex-1 overflow-auto">
 			<Table className="w-full table-fixed border-collapse">
 				<TableHeader className="sticky top-0 z-10 bg-zinc-100 backdrop-blur-lg">
 					<TableRow className="hover:bg-transparent">

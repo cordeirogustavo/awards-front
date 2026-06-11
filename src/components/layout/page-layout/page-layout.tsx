@@ -17,7 +17,7 @@ const PageRoot: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
-		<div className="flex shrink-0 flex-col items-start justify-between pt-4 sm:flex-row">
+		<div className="flex shrink-0 flex-col items-start justify-between py-4 sm:flex-row">
 			{children}
 		</div>
 	);

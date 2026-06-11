@@ -63,7 +63,7 @@ export function DesktopList<TData>({
 		return <DesktopListLoading headers={table.getHeaderGroups()[0].headers} />;
 	if (!recordCount) return null;
 	return (
-		<div className="relative min-h-50 flex-1 overflow-auto" ref={contentRef}>
+		<div className="relative min-h-30 flex-1 overflow-auto" ref={contentRef}>
 			<Table className="table-fixed border-separate border-spacing-0">
 				<TableHeader className="sticky! top-0! z-10 bg-zinc-100 backdrop-blur-lg">
 					{table.getHeaderGroups().map((headerGroup) => (

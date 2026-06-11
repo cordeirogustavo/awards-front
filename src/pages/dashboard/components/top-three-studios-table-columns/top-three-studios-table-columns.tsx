@@ -5,7 +5,7 @@ import { HeaderButton } from "@/components/data-table/header-button";
 export const TopThreeStudiosTableColumns: ColumnDef<StudioCountPerWin>[] = [
 	{
 		accessorKey: "name",
-		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+		header: ({ column }) => <HeaderButton column={column} title="Name" />,
 	},
 	{
 		accessorKey: "winCount",
