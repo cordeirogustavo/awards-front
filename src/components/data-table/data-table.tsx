@@ -23,6 +23,7 @@ import {
 } from "./row-actions/row-actions";
 
 interface IDataTableProps<TData, TValue> {
+	title: string;
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 	searchBy?: string;
@@ -36,6 +37,7 @@ export interface ITableItens<TData> {
 }
 
 export function DataTable<TData, TValue>({
+	title,
 	columns,
 	data,
 	searchBy,
@@ -115,7 +117,12 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div className="flex min-h-0 flex-1 flex-col gap-4">
-			<ListHeader table={table} searchText="Search" searchBy={searchBy} />
+			<ListHeader
+				title={title}
+				table={table}
+				searchText="Search"
+				searchBy={searchBy}
+			/>
 			<NoData
 				text="No results found."
 				visible={!table.getRowModel().rows?.length && !isLoading}

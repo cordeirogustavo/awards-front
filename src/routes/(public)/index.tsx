@@ -7,7 +7,7 @@ export const Route = createFileRoute("/(public)/")({
 		const { queryClient } = context;
 		queryClient.ensureQueryData(
 			findYearsWithMultipleWinnersQueryOptions({
-				skipLoading: false,
+				skipLoading: true,
 			}),
 		);
 		return {};

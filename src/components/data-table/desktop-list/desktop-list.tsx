@@ -28,7 +28,7 @@ function TableRowItem<TData>({ row }: { id: string; row: Row<TData> }) {
 	return (
 		<TableRow
 			key={row.id}
-			className="group transition-colors hover:bg-zinc-200"
+			className="group odd:bg-zinc-50 transition-colors hover:bg-zinc-200"
 		>
 			{row.getVisibleCells().map((cell) => {
 				const value = cell.getValue();

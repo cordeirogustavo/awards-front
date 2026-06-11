@@ -1,21 +1,25 @@
 import type { Table as TanstackTable } from "@tanstack/react-table";
 
 interface IListHeaderProps<TData> {
+	title: string;
 	table: TanstackTable<TData>;
 	searchText: string;
 	searchBy?: string;
 }
 
 export function ListHeader<TData>({
+	title,
 	table,
 	searchText,
 	searchBy,
 }: IListHeaderProps<TData>) {
 	return (
-		<div className="mt-0 flex flex-row items-center gap-4 sm:mt-8 sm:items-end sm:justify-end">
+		<div className="mt-8 flex flex-row items-center gap-4 sm:items-end sm:justify-between">
+			<span className="text-2xl text-bold text-zinc-600">{title}</span>
 			{searchBy && (
 				<div className="relative w-full sm:max-w-sm">
 					<input
+						className="w-full border border-zinc-300 p-2 rounded-sm"
 						type="text"
 						placeholder={searchText}
 						value={

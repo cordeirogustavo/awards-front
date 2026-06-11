@@ -1,10 +1,18 @@
 import { Page } from "@/components";
 import { DataTable } from "@/components/data-table";
-import { ListYearsTableColumns } from "./components/list-years-table-columns";
+import {
+	ListYearsTableColumns,
+	TopThreeStudiosTableColumns,
+} from "./components";
 import { useDashboardPage } from "./dashboard.hooks";
 
 export const DashboardPage: React.FC = () => {
-	const { yearsWithMultipleWinnersData, isLoading } = useDashboardPage();
+	const {
+		yearsWithMultipleWinnersData,
+		studiosWithWinCountData,
+		isStudiosWithWinLoading,
+		isYearsWithMultipleWinnersLoading,
+	} = useDashboardPage();
 	return (
 		<Page>
 			<Page.Header>
@@ -16,12 +24,20 @@ export const DashboardPage: React.FC = () => {
 				</Page.Header.Content>
 			</Page.Header>
 			<Page.Content>
-				<DataTable
-					data={yearsWithMultipleWinnersData}
-					columns={ListYearsTableColumns}
-					searchBy="name"
-					isLoading={isLoading}
-				/>
+				<div className="grid h-full grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2">
+					<DataTable
+						title="List years with multiple winners"
+						data={yearsWithMultipleWinnersData}
+						columns={ListYearsTableColumns}
+						isLoading={isYearsWithMultipleWinnersLoading}
+					/>
+					<DataTable
+						title="Top 3 studios with winners"
+						data={studiosWithWinCountData}
+						columns={TopThreeStudiosTableColumns}
+						isLoading={isStudiosWithWinLoading}
+					/>
+				</div>
 			</Page.Content>
 		</Page>
 	);

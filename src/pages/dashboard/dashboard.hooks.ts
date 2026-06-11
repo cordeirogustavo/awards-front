@@ -1,25 +1,42 @@
 import React from "react";
 import {
+	type StudioCountPerWin,
+	useFindStudiosWithWinCount,
 	useFindYearsWithMultipleWinners,
 	type YearWithMultipleWinners,
 } from "@/api/generated";
 
 export interface IDashboardHooks {
 	yearsWithMultipleWinnersData: YearWithMultipleWinners[];
-	isLoading: boolean;
+	studiosWithWinCountData: StudioCountPerWin[];
+	isYearsWithMultipleWinnersLoading: boolean;
+	isStudiosWithWinLoading: boolean;
 }
 
 export const useDashboardPage = (): IDashboardHooks => {
-	const { data, isLoading } = useFindYearsWithMultipleWinners({
+	const {
+		data: yearsWithMultipleWinners,
+		isLoading: isYearsWithMultipleWinnersLoading,
+	} = useFindYearsWithMultipleWinners({
 		client: { skipLoading: true },
 	});
-	const yearsWithMultipleWinnersData = React.useMemo(
-		() => data?.years ?? [],
-		[data],
-	);
+
+	const { data: studiosWithWinCount, isLoading: isStudiosWithWinLoading } =
+		useFindStudiosWithWinCount({
+			client: { skipLoading: true },
+		});
+
+	const topStudios = React.useMemo(() => {
+		const studios = studiosWithWinCount?.studios ?? [];
+		return [...studios]
+			.sort((a, b) => (b?.winCount ?? 0) - (a?.winCount ?? 0))
+			.slice(0, 3);
+	}, [studiosWithWinCount?.studios]);
 
 	return {
-		yearsWithMultipleWinnersData,
-		isLoading,
+		yearsWithMultipleWinnersData: yearsWithMultipleWinners?.years ?? [],
+		studiosWithWinCountData: topStudios,
+		isYearsWithMultipleWinnersLoading,
+		isStudiosWithWinLoading,
 	};
 };
