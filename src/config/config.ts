@@ -5,7 +5,6 @@ type Config = {
 
 export const config: Config = {
 	apiBaseUrl:
-		import.meta.env.VITE_API_BASE_URL ||
-		"https://challenge.outsera.tech/api/movies",
+		import.meta.env.VITE_API_BASE_URL || "https://challenge.outsera.tech",
 	appName: import.meta.env.VITE_APP_NAME || "Awards App",
 };

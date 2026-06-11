@@ -59,16 +59,14 @@ const Body: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const Title: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
-		<h2 className="font-bold text-2xl text-foreground tracking-tight">
+		<h2 className="font-bold text-2xl text-zinc-600 tracking-tight">
 			{children}
 		</h2>
 	);
 };
 
 const Description: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	return (
-		<p className="text-muted-foreground text-sm leading-relaxed">{children}</p>
-	);
+	return <p className="text-zinc-600 text-sm leading-relaxed">{children}</p>;
 };
 
 const Actions: React.FC<{ children: React.ReactNode }> = ({ children }) => {

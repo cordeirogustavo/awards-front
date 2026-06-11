@@ -1,6 +1,10 @@
 import { Page } from "@/components";
+import { DataTable } from "@/components/data-table";
+import { ListYearsTableColumns } from "./components/list-years-table-columns";
+import { useDashboardPage } from "./dashboard.hooks";
 
 export const DashboardPage: React.FC = () => {
+	const { yearsWithMultipleWinnersData, isLoading } = useDashboardPage();
 	return (
 		<Page>
 			<Page.Header>
@@ -12,7 +16,12 @@ export const DashboardPage: React.FC = () => {
 				</Page.Header.Content>
 			</Page.Header>
 			<Page.Content>
-				<p></p>
+				<DataTable
+					data={yearsWithMultipleWinnersData}
+					columns={ListYearsTableColumns}
+					searchBy="name"
+					isLoading={isLoading}
+				/>
 			</Page.Content>
 		</Page>
 	);

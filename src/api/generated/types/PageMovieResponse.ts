@@ -9,13 +9,13 @@ import type { SortObject } from "./SortObject.ts";
 
 export type PageMovieResponse = {
     /**
-     * @type integer | undefined, int64
-    */
-    totalElements?: number;
-    /**
      * @type integer | undefined, int32
     */
     totalPages?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    totalElements?: number;
     /**
      * @type object | undefined
     */

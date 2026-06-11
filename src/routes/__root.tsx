@@ -1,9 +1,13 @@
 import "../styles.css";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-
+import type { QueryClient } from "@tanstack/react-query";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { Content } from "@/components";
 
-export const Route = createRootRoute({
+interface IRouterContext {
+	queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<IRouterContext>()({
 	component: RootComponent,
 });
 

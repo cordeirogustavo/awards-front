@@ -7,10 +7,10 @@ import { sortObjectSchema } from "./sortObjectSchema.ts";
 import { z } from "zod/v4";
 
 export const pageableObjectSchema = z.object({
-    "unpaged": z.optional(z.boolean()),
-"paged": z.optional(z.boolean()),
+    "paged": z.optional(z.boolean()),
 "pageSize": z.optional(z.coerce.number().int()),
 "pageNumber": z.optional(z.coerce.number().int()),
+"unpaged": z.optional(z.boolean()),
 "offset": z.optional(z.coerce.number().int()),
 get "sort"(){
                 return z.optional(sortObjectSchema)

@@ -24,7 +24,7 @@ export default defineConfig({
       enumType: "literal",
       dateType: "string",
       transformers: {
-        name: (name, type) => {
+        name: (name) => {
           if (name.match(/\d{3}$/)) {
             const statusMatch = name.match(/^(.+?)(\d{3})$/)
             if (statusMatch) {
@@ -53,15 +53,6 @@ export default defineConfig({
           }
 
           if (name.endsWith("QueryParams")) {
-            return `T${name}`
-          }
-
-          if (
-            type === "type" &&
-            !name.startsWith("T") &&
-            !name.includes("Mutation") &&
-            !name.includes("Response")
-          ) {
             return `T${name}`
           }
 

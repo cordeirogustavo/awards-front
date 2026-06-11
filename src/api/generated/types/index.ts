@@ -7,11 +7,11 @@ export type { TFindWinnersByYearQueryParams, TFindWinnersByYearResponse, TFindWi
 export type { TFindYearsWithMultipleWinnersResponse, TFindYearsWithMultipleWinners400Error, TFindYearsWithMultipleWinners500Error, FindYearsWithMultipleWinnersQueryResponse, FindYearsWithMultipleWinnersQuery } from "./FindYearsWithMultipleWinners.ts";
 export type { MaxMinWinIntervalForProducersResponse } from "./MaxMinWinIntervalForProducersResponse.ts";
 export type { MovieResponse } from "./MovieResponse.ts";
-export type { TPageableObject } from "./PageableObject.ts";
+export type { PageableObject } from "./PageableObject.ts";
 export type { PageMovieResponse } from "./PageMovieResponse.ts";
-export type { TProducerWithInterval } from "./ProducerWithInterval.ts";
-export type { TSortObject } from "./SortObject.ts";
-export type { TStudioCountPerWin } from "./StudioCountPerWin.ts";
+export type { ProducerWithInterval } from "./ProducerWithInterval.ts";
+export type { SortObject } from "./SortObject.ts";
+export type { StudioCountPerWin } from "./StudioCountPerWin.ts";
 export type { StudiosWithWinCountResponse } from "./StudiosWithWinCountResponse.ts";
 export type { YearsWithMultipleWinnersResponse } from "./YearsWithMultipleWinnersResponse.ts";
-export type { TYearWithMultipleWinners } from "./YearWithMultipleWinners.ts";
+export type { YearWithMultipleWinners } from "./YearWithMultipleWinners.ts";
