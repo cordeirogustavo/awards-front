@@ -2,7 +2,6 @@ import { defineConfig } from "@kubb/core"
 import { pluginOas } from "@kubb/plugin-oas"
 import { pluginReactQuery } from "@kubb/plugin-react-query"
 import { pluginTs } from "@kubb/plugin-ts"
-import { pluginZod } from "@kubb/plugin-zod"
 
 export default defineConfig({
   root: ".",
@@ -79,26 +78,6 @@ export default defineConfig({
       suspense: false,
       transformers: {
         name: (name) => {
-          return name
-        },
-      },
-    }),
-
-    pluginZod({
-      output: { path: "./zod" },
-      coercion: true,
-      transformers: {
-        name: (name) => {
-          const baseName = name.replace(/Schema$/, "")
-          if (baseName.endsWith("MutationRequest")) {
-            return `${baseName.replace("MutationRequest", "")}Schema`
-          }
-          if (baseName.endsWith("PathParams")) {
-            return `${baseName.replace("PathParams", "Params")}Schema`
-          }
-          if (baseName.endsWith("QueryParams")) {
-            return `${baseName.replace("QueryParams", "Query")}Schema`
-          }
           return name
         },
       },
