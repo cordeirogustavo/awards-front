@@ -1,6 +1,8 @@
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { Page } from "@/components";
 import { DataTable } from "@/components/data-table";
 import {
+	ListMovieWinnerTableColumn,
 	ListYearsTableColumns,
 	ProducersWithIntervalsTableColumns,
 	TopThreeStudiosTableColumns,
@@ -13,9 +15,13 @@ export const DashboardPage: React.FC = () => {
 		studiosWithWinCountData,
 		maxIntervalProducersData,
 		minIntervalProducersData,
+		winnersByYearData,
 		isStudiosWithWinLoading,
 		isYearsWithMultipleWinnersLoading,
 		isMaxMinProducersLoading,
+		isLoadingWinnersByYear,
+		searchByYearInput,
+		handleSearchByYear,
 	} = useDashboardPage();
 	return (
 		<Page>
@@ -60,6 +66,35 @@ export const DashboardPage: React.FC = () => {
 							data={minIntervalProducersData}
 							columns={ProducersWithIntervalsTableColumns}
 							isLoading={isMaxMinProducersLoading}
+						/>
+					</div>
+					<div className="flex flex-col shadow-sm p-2 max-h-100 w-full gap-4">
+						<span className="text-2xl text-bold text-zinc-600">
+							List movie winners by year
+						</span>
+						<div className="flex flex-row w-full justify-between gap-2">
+							<input
+								className="w-full border border-zinc-300 p-2 rounded-sm"
+								type="number"
+								ref={searchByYearInput}
+								placeholder="Search by year"
+							/>
+							<button
+								type="button"
+								className="p-4 bg-blue-500 cursor-pointer"
+								onClick={handleSearchByYear}
+							>
+								<MagnifyingGlassIcon
+									className="h-4 w-4 text-white"
+									weight="duotone"
+								/>
+							</button>
+						</div>
+						<DataTable
+							title=""
+							data={winnersByYearData}
+							columns={ListMovieWinnerTableColumn}
+							isLoading={isLoadingWinnersByYear}
 						/>
 					</div>
 				</div>

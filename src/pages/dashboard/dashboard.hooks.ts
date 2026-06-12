@@ -1,24 +1,34 @@
 import React from "react";
 import {
+	type MovieResponse,
 	type ProducerWithInterval,
 	type StudioCountPerWin,
 	useFindMaxMinWinIntervalForProducers,
 	useFindStudiosWithWinCount,
+	useFindWinnersByYear,
 	useFindYearsWithMultipleWinners,
 	type YearWithMultipleWinners,
 } from "@/api/generated";
+import { searchByYearSchema } from "./dashboard.schemas";
 
 export interface IDashboardHooks {
 	yearsWithMultipleWinnersData: YearWithMultipleWinners[];
 	studiosWithWinCountData: StudioCountPerWin[];
 	maxIntervalProducersData: ProducerWithInterval[];
 	minIntervalProducersData: ProducerWithInterval[];
+	winnersByYearData: MovieResponse[];
 	isYearsWithMultipleWinnersLoading: boolean;
 	isStudiosWithWinLoading: boolean;
 	isMaxMinProducersLoading: boolean;
+	isLoadingWinnersByYear: boolean;
+	searchByYearInput: React.RefObject<HTMLInputElement | null>;
+	handleSearchByYear: () => void;
 }
 
 export const useDashboardPage = (): IDashboardHooks => {
+	const [yearToSearch, setYearToSearch] = React.useState<number>();
+	const searchByYearInput = React.useRef<HTMLInputElement>(null);
+
 	const {
 		data: yearsWithMultipleWinners,
 		isLoading: isYearsWithMultipleWinnersLoading,
@@ -36,12 +46,38 @@ export const useDashboardPage = (): IDashboardHooks => {
 			client: { skipLoading: true },
 		});
 
+	const { data: winnersByYearData, isLoading: isLoadingWinnersByYear } =
+		useFindWinnersByYear(
+			{ year: yearToSearch || 0 },
+			{
+				client: { skipLoading: true },
+				query: {
+					enabled: yearToSearch !== null,
+				},
+			},
+		);
+
 	const topStudios = React.useMemo(() => {
 		const studios = studiosWithWinCount?.studios ?? [];
 		return [...studios]
 			.sort((a, b) => (b?.winCount ?? 0) - (a?.winCount ?? 0))
 			.slice(0, 3);
 	}, [studiosWithWinCount?.studios]);
+
+	const handleSearchByYear = React.useCallback(() => {
+		const parsed = searchByYearSchema.safeParse({
+			year: searchByYearInput.current?.value,
+		});
+		if (!parsed.success) {
+			searchByYearInput.current?.setCustomValidity(
+				parsed.error.issues.map((issue) => issue.message).join(", "),
+			);
+			searchByYearInput.current?.reportValidity();
+			return;
+		}
+		searchByYearInput.current?.setCustomValidity("");
+		setYearToSearch(parsed.data.year);
+	}, []);
 
 	return {
 		yearsWithMultipleWinnersData: yearsWithMultipleWinners?.years ?? [],
@@ -51,5 +87,9 @@ export const useDashboardPage = (): IDashboardHooks => {
 		isYearsWithMultipleWinnersLoading,
 		isStudiosWithWinLoading,
 		isMaxMinProducersLoading,
+		winnersByYearData: winnersByYearData ?? [],
+		isLoadingWinnersByYear,
+		searchByYearInput,
+		handleSearchByYear,
 	};
 };
