@@ -2,6 +2,8 @@
 
 A dashboard with stats about the Golden Raspberry Awards movies, plus a list page with filters and pagination.
 
+Live at: https://awards-app.beeno.com.br
+
 ## Requirements
 
 - Node **24** (this project was built against `v24.15.0`, set in `.nvmrc`). If you use `nvm`, just run:
