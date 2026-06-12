@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
-import { Page } from "@/components";
+import { DashboardContainer, Page } from "@/components";
 import { DataTable } from "@/components/data-table";
 import {
 	ListMovieWinnerTableColumn,
@@ -35,23 +35,23 @@ export const DashboardPage: React.FC = () => {
 			</Page.Header>
 			<Page.Content>
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-					<div className="shadow-sm p-2">
+					<DashboardContainer>
 						<DataTable
 							title="List years with multiple winners"
 							data={yearsWithMultipleWinnersData}
 							columns={ListYearsTableColumns}
 							isLoading={isYearsWithMultipleWinnersLoading}
 						/>
-					</div>
-					<div className="shadow-sm p-2">
+					</DashboardContainer>
+					<DashboardContainer>
 						<DataTable
 							title="Top 3 studios with winners"
 							data={studiosWithWinCountData}
 							columns={TopThreeStudiosTableColumns}
 							isLoading={isStudiosWithWinLoading}
 						/>
-					</div>
-					<div className="shadow-sm p-2">
+					</DashboardContainer>
+					<DashboardContainer>
 						<span className="text-2xl text-bold text-zinc-600">
 							Producers with longest and shortest interval between wins
 						</span>
@@ -67,8 +67,8 @@ export const DashboardPage: React.FC = () => {
 							columns={ProducersWithIntervalsTableColumns}
 							isLoading={isMaxMinProducersLoading}
 						/>
-					</div>
-					<div className="flex flex-col shadow-sm p-2 max-h-100 w-full gap-4">
+					</DashboardContainer>
+					<DashboardContainer>
 						<span className="text-2xl text-bold text-zinc-600">
 							List movie winners by year
 						</span>
@@ -96,7 +96,7 @@ export const DashboardPage: React.FC = () => {
 							columns={ListMovieWinnerTableColumn}
 							isLoading={isLoadingWinnersByYear}
 						/>
-					</div>
+					</DashboardContainer>
 				</div>
 			</Page.Content>
 		</Page>
