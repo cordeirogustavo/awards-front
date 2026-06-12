@@ -11,6 +11,7 @@ interface IMobileListProps<TData> {
 	visible: boolean;
 	recordCount: number;
 	isLoading?: boolean;
+	loadingItems?: number;
 }
 
 function CardRowItem<TData>({
@@ -75,9 +76,11 @@ export function MobileList<TData>({
 	visible,
 	recordCount,
 	isLoading = false,
+	loadingItems,
 }: IMobileListProps<TData>) {
 	if (!visible) return null;
-	if (isLoading) return <MobileListLoading headers={headers} />;
+	if (isLoading)
+		return <MobileListLoading headers={headers} loadingItems={loadingItems} />;
 	if (!recordCount) return null;
 	return (
 		<div

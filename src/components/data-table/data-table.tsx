@@ -41,6 +41,7 @@ interface IDataTableProps<TData, TValue> {
 	isLoading?: boolean;
 	showRecordsCount?: boolean;
 	pagination?: IDataTablePagination;
+	loadingItems?: number;
 }
 
 export interface ITableItens<TData> {
@@ -57,6 +58,7 @@ export function DataTable<TData, TValue>({
 	isLoading = false,
 	showRecordsCount = false,
 	pagination,
+	loadingItems,
 }: IDataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -140,14 +142,13 @@ export function DataTable<TData, TValue>({
 	}, [table]);
 
 	const rows = table.getRowModel().rows;
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <this dep is necessary to update render when columnVisibility change>
 	const tableItems = React.useMemo(
 		() =>
 			rows.map((row) => ({
 				id: row.id,
 				row,
 			})),
-		[rows, columnVisibility],
+		[rows],
 	);
 
 	return (
@@ -169,6 +170,7 @@ export function DataTable<TData, TValue>({
 				visible={!isMobile}
 				recordCount={rows.length}
 				isLoading={isLoading}
+				loadingItems={loadingItems}
 			/>
 			<MobileList
 				contentMobileRef={contentMobileRef}
@@ -178,6 +180,7 @@ export function DataTable<TData, TValue>({
 				isLoading={isLoading}
 				recordCount={rows.length}
 				headers={table.getFlatHeaders()}
+				loadingItems={loadingItems}
 			/>
 			{showRecordsCount && (
 				<RecordsCount

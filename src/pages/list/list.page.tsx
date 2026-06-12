@@ -2,6 +2,7 @@ import { Page } from "@/components";
 import { DataTable } from "@/components/data-table";
 import { ListMoviesTableColumns } from "./components";
 import { useListPage } from "./list.hooks";
+import { LIST_PAGE_SIZE } from "./list.schemas";
 
 export const ListPage: React.FC = () => {
 	const {
@@ -67,6 +68,7 @@ export const ListPage: React.FC = () => {
 							totalPages,
 							onPageChange,
 						}}
+						loadingItems={LIST_PAGE_SIZE}
 					/>
 				</div>
 			</Page.Content>

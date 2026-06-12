@@ -4,15 +4,16 @@ import { Skeleton } from "@/components";
 interface IMobileListLoadingProps<TData> {
 	headers: Header<TData, unknown>[];
 	actions?: boolean;
+	loadingItems?: number;
 }
 
 export function MobileListLoading<TData>({
 	headers,
 	actions,
+	loadingItems = 10,
 }: IMobileListLoadingProps<TData>) {
-	const rows = 10;
 	const skeletonRows = Array.from(
-		{ length: rows },
+		{ length: loadingItems },
 		(_, i) => `skeleton-row-${i}`,
 	);
 

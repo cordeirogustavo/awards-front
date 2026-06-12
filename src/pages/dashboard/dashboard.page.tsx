@@ -41,6 +41,7 @@ export const DashboardPage: React.FC = () => {
 							data={yearsWithMultipleWinnersData}
 							columns={ListYearsTableColumns}
 							isLoading={isYearsWithMultipleWinnersLoading}
+							loadingItems={3}
 						/>
 					</DashboardContainer>
 					<DashboardContainer>
@@ -49,6 +50,7 @@ export const DashboardPage: React.FC = () => {
 							data={studiosWithWinCountData}
 							columns={TopThreeStudiosTableColumns}
 							isLoading={isStudiosWithWinLoading}
+							loadingItems={3}
 						/>
 					</DashboardContainer>
 					<DashboardContainer>
@@ -60,12 +62,14 @@ export const DashboardPage: React.FC = () => {
 							data={maxIntervalProducersData}
 							columns={ProducersWithIntervalsTableColumns}
 							isLoading={isMaxMinProducersLoading}
+							loadingItems={1}
 						/>
 						<DataTable
 							title="Minimum"
 							data={minIntervalProducersData}
 							columns={ProducersWithIntervalsTableColumns}
 							isLoading={isMaxMinProducersLoading}
+							loadingItems={1}
 						/>
 					</DashboardContainer>
 					<DashboardContainer>
@@ -95,6 +99,7 @@ export const DashboardPage: React.FC = () => {
 							data={winnersByYearData}
 							columns={ListMovieWinnerTableColumn}
 							isLoading={isLoadingWinnersByYear}
+							loadingItems={5}
 						/>
 					</DashboardContainer>
 				</div>

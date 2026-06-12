@@ -11,14 +11,15 @@ import {
 
 interface IDesktopListLoadingProps<TData> {
 	headers: Header<TData, unknown>[];
+	loadingItems?: number;
 }
 
 export function DesktopListLoading<TData>({
 	headers,
+	loadingItems = 30,
 }: IDesktopListLoadingProps<TData>) {
-	const rows = 30;
 	const skeletonRows = Array.from(
-		{ length: rows },
+		{ length: loadingItems },
 		(_, i) => `skeleton-row-${i}`,
 	);
 	return (

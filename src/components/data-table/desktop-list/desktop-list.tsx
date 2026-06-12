@@ -22,6 +22,7 @@ interface IDesktopListProps<TData> {
 	visible: boolean;
 	recordCount: number;
 	isLoading?: boolean;
+	loadingItems?: number;
 }
 
 function TableRowItem<TData>({ row }: { id: string; row: Row<TData> }) {
@@ -57,10 +58,16 @@ export function DesktopList<TData>({
 	visible,
 	recordCount,
 	isLoading = false,
+	loadingItems,
 }: IDesktopListProps<TData>) {
 	if (!visible) return null;
 	if (isLoading)
-		return <DesktopListLoading headers={table.getHeaderGroups()[0].headers} />;
+		return (
+			<DesktopListLoading
+				headers={table.getHeaderGroups()[0].headers}
+				loadingItems={loadingItems}
+			/>
+		);
 	if (!recordCount) return null;
 	return (
 		<div className="relative min-h-30 flex-1 overflow-auto" ref={contentRef}>
