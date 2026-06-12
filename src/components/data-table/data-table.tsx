@@ -5,8 +5,10 @@ import {
 	getFilteredRowModel,
 	getSortedRowModel,
 	type Header,
+	type PaginationState,
 	type Row,
 	type SortingState,
+	type Updater,
 	useReactTable,
 	type VisibilityState,
 } from "@tanstack/react-table";
@@ -16,11 +18,19 @@ import { DesktopList } from "./desktop-list";
 import { ListHeader } from "./list-header";
 import { MobileList } from "./mobile-list";
 import { NoData } from "./no-data";
+import { Pagination } from "./pagination";
 import { RecordsCount } from "./records-count";
 import {
 	type IDataTableRowAction,
 	RowActions,
 } from "./row-actions/row-actions";
+
+export interface IDataTablePagination {
+	pageIndex: number;
+	pageSize: number;
+	totalPages: number;
+	onPageChange: (pageIndex: number) => void;
+}
 
 interface IDataTableProps<TData, TValue> {
 	title: string;
@@ -30,6 +40,7 @@ interface IDataTableProps<TData, TValue> {
 	actions?: IDataTableRowAction<TData>[];
 	isLoading?: boolean;
 	showRecordsCount?: boolean;
+	pagination?: IDataTablePagination;
 }
 
 export interface ITableItens<TData> {
@@ -45,6 +56,7 @@ export function DataTable<TData, TValue>({
 	actions,
 	isLoading = false,
 	showRecordsCount = false,
+	pagination,
 }: IDataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -91,10 +103,31 @@ export function DataTable<TData, TValue>({
 		onColumnVisibilityChange: setColumnVisibility,
 		enableColumnResizing: true,
 		columnResizeMode: "onEnd",
+		manualPagination: !!pagination,
+		pageCount: pagination?.totalPages,
+		onPaginationChange: pagination
+			? (updater: Updater<PaginationState>) => {
+					const current: PaginationState = {
+						pageIndex: pagination.pageIndex,
+						pageSize: pagination.pageSize,
+					};
+					const next =
+						typeof updater === "function" ? updater(current) : updater;
+					pagination.onPageChange(next.pageIndex);
+				}
+			: undefined,
 		state: {
 			sorting,
 			columnFilters,
 			columnVisibility,
+			...(pagination
+				? {
+						pagination: {
+							pageIndex: pagination.pageIndex,
+							pageSize: pagination.pageSize,
+						},
+					}
+				: {}),
 		},
 	});
 
@@ -151,6 +184,7 @@ export function DataTable<TData, TValue>({
 					text={`${table.getFilteredRowModel().rows.length} of ${data.length} records`}
 				/>
 			)}
+			{pagination && <Pagination table={table} />}
 		</div>
 	);
 }
