@@ -1,1 +1,1 @@
-export * from "./records-count"
+export * from "./records-count";

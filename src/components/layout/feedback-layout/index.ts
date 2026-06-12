@@ -1,1 +1,1 @@
-export * from "./feedback-layout"
+export * from "./feedback-layout";

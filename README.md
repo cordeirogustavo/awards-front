@@ -24,8 +24,8 @@ npm install
 cp .env-example .env
 ```
 
-| Variable            | Description                               | Default |
-| ------------------- | ----------------------------------------- | ------- |
+| Variable            | Description                               |
+| ------------------- | ----------------------------------------- |
 | `VITE_APP_NAME`     | Name shown in the app                     |
 | `VITE_API_BASE_URL` | Base URL of the API used by the front-end |
 
@@ -39,17 +39,17 @@ The app runs at `http://localhost:3000`.
 
 ## Scripts
 
-| Command                   | What it does                                                    |
-| ------------------------- | --------------------------------------------------------------- |
-| `npm run dev`             | starts the dev server                                           |
-| `npm run build`           | builds the app for production                                   |
-| `npm run preview`         | serves the production build locally                             |
-| `npm run test`            | runs the test suite with Vitest                                 |
-| `npm run lint`            | runs Biome's linter                                             |
-| `npm run format`          | formats the code with Biome                                     |
-| `npm run check`           | runs lint + format in check mode                                |
-| `npm run generate:routes` | generates TanStack Router routes from `src/routes`              |
-| `npm run generate:api`    | generates the API clients/hooks from the Outsera swagger (Kubb) |
+| Command                   | What it does                                            |
+| ------------------------- | ------------------------------------------------------- |
+| `npm run dev`             | starts the dev server                                   |
+| `npm run build`           | builds the app for production                           |
+| `npm run preview`         | serves the production build locally                     |
+| `npm run test`            | runs the test suite with Vitest                         |
+| `npm run lint`            | runs Biome's linter                                     |
+| `npm run format`          | formats the code with Biome                             |
+| `npm run check`           | runs lint + format in check mode                        |
+| `npm run generate:routes` | generates TanStack Router routes from `src/routes`      |
+| `npm run generate:api`    | generates the API clients/hooks from the swagger (Kubb) |
 
 ## Project structure
 

@@ -1,1 +1,1 @@
-export * from "./mobile-list"
+export * from "./mobile-list";

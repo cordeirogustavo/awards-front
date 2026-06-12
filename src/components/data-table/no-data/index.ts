@@ -1,1 +1,1 @@
-export * from "./no-data"
+export * from "./no-data";
