@@ -1,11 +1,9 @@
 import { flexRender, type Header, type Row } from "@tanstack/react-table";
-import type React from "react";
 import type { ITableItens } from "../data-table";
 import { MobileListLoading } from "./mobile-list-loading";
 
 interface IMobileListProps<TData> {
 	headers: Header<TData, unknown>[];
-	contentMobileRef: React.RefObject<HTMLDivElement | null>;
 	tableItems: ITableItens<TData>[];
 	headersByColumnId: Map<string, Header<TData, unknown>>;
 	visible: boolean;
@@ -41,7 +39,6 @@ function CardRowItem<TData>({
 										header.getContext(),
 									)}
 							</span>
-
 							<span
 								className="block truncate text-sm text-zinc-800"
 								title={typeof value === "string" ? value : undefined}
@@ -58,7 +55,6 @@ function CardRowItem<TData>({
 
 export function MobileList<TData>({
 	headers,
-	contentMobileRef,
 	tableItems,
 	headersByColumnId,
 	visible,
@@ -71,10 +67,7 @@ export function MobileList<TData>({
 		return <MobileListLoading headers={headers} loadingItems={loadingItems} />;
 	if (!recordCount) return null;
 	return (
-		<div
-			className="flex min-h-20 w-full flex-1 flex-col overflow-auto"
-			ref={contentMobileRef}
-		>
+		<div className="flex min-h-20 w-full flex-1 flex-col overflow-auto">
 			<div className="flex flex-col gap-1">
 				{tableItems.map((item) => (
 					<CardRowItem

@@ -1,8 +1,6 @@
 import {
 	type ColumnDef,
-	type ColumnFiltersState,
 	getCoreRowModel,
-	getFilteredRowModel,
 	type Header,
 	type PaginationState,
 	type Row,
@@ -16,7 +14,6 @@ import { ListHeader } from "./list-header/list-header";
 import { MobileList } from "./mobile-list/mobile-list";
 import { NoData } from "./no-data/no-data";
 import { Pagination } from "./pagination/pagination";
-import { RecordsCount } from "./records-count/records-count";
 
 export interface IDataTablePagination {
 	pageIndex: number;
@@ -29,9 +26,7 @@ interface IDataTableProps<TData, TValue> {
 	title: string;
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
-	searchBy?: string;
 	isLoading?: boolean;
-	showRecordsCount?: boolean;
 	pagination?: IDataTablePagination;
 	loadingItems?: number;
 }
@@ -45,25 +40,16 @@ export function DataTable<TData, TValue>({
 	title,
 	columns,
 	data,
-	searchBy,
 	isLoading = false,
-	showRecordsCount = false,
 	pagination,
 	loadingItems,
 }: IDataTableProps<TData, TValue>) {
-	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-		[],
-	);
-	const contentRef = React.useRef<HTMLDivElement>(null);
-	const contentMobileRef = React.useRef<HTMLDivElement>(null);
 	const isMobile = useIsMobile();
 
 	const table = useReactTable<TData>({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
-		onColumnFiltersChange: setColumnFilters,
-		getFilteredRowModel: getFilteredRowModel(),
 		manualPagination: !!pagination,
 		pageCount: pagination?.totalPages,
 		onPaginationChange: pagination
@@ -78,7 +64,6 @@ export function DataTable<TData, TValue>({
 				}
 			: undefined,
 		state: {
-			columnFilters,
 			...(pagination
 				? {
 						pagination: {
@@ -100,29 +85,19 @@ export function DataTable<TData, TValue>({
 
 	const rows = table.getRowModel().rows;
 	const tableItems = React.useMemo(
-		() =>
-			rows.map((row) => ({
-				id: row.id,
-				row,
-			})),
+		() => rows.map((row) => ({ id: row.id, row })),
 		[rows],
 	);
 
 	return (
 		<div className="flex min-h-0 flex-1 flex-col gap-4">
-			<ListHeader
-				title={title}
-				table={table}
-				searchText="Search"
-				searchBy={searchBy}
-			/>
+			<ListHeader title={title} />
 			<NoData
 				text="No results found."
-				visible={!table.getRowModel().rows?.length && !isLoading}
+				visible={!rows.length && !isLoading}
 			/>
 			<DesktopList
 				table={table}
-				contentRef={contentRef}
 				tableItems={tableItems}
 				visible={!isMobile}
 				recordCount={rows.length}
@@ -130,7 +105,6 @@ export function DataTable<TData, TValue>({
 				loadingItems={loadingItems}
 			/>
 			<MobileList
-				contentMobileRef={contentMobileRef}
 				tableItems={tableItems}
 				headersByColumnId={headersByColumnId}
 				visible={isMobile}
@@ -139,11 +113,6 @@ export function DataTable<TData, TValue>({
 				headers={table.getFlatHeaders()}
 				loadingItems={loadingItems}
 			/>
-			{showRecordsCount && (
-				<RecordsCount
-					text={`${table.getFilteredRowModel().rows.length} of ${data.length} records`}
-				/>
-			)}
 			{pagination && <Pagination table={table} />}
 		</div>
 	);

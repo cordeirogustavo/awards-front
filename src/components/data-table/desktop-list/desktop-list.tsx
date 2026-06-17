@@ -3,7 +3,6 @@ import {
 	type Row,
 	type Table as TanstackTable,
 } from "@tanstack/react-table";
-import type React from "react";
 import {
 	Table,
 	TableBody,
@@ -17,7 +16,6 @@ import { DesktopListLoading } from "./desktop-list-loading";
 
 interface IDesktopListProps<TData> {
 	table: TanstackTable<TData>;
-	contentRef: React.RefObject<HTMLDivElement | null>;
 	tableItems: ITableItens<TData>[];
 	visible: boolean;
 	recordCount: number;
@@ -53,7 +51,6 @@ function TableRowItem<TData>({ row }: { id: string; row: Row<TData> }) {
 
 export function DesktopList<TData>({
 	table,
-	contentRef,
 	tableItems,
 	visible,
 	recordCount,
@@ -70,7 +67,7 @@ export function DesktopList<TData>({
 		);
 	if (!recordCount) return null;
 	return (
-		<div className="relative min-h-30 flex-1 overflow-auto" ref={contentRef}>
+		<div className="relative min-h-30 flex-1 overflow-auto">
 			<Table className="table-fixed border-separate border-spacing-0">
 				<TableHeader className="sticky! top-0! z-10 bg-zinc-100 backdrop-blur-lg">
 					{table.getHeaderGroups().map((headerGroup) => (
