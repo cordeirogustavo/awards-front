@@ -3,27 +3,20 @@ import {
 	type ColumnFiltersState,
 	getCoreRowModel,
 	getFilteredRowModel,
-	getSortedRowModel,
 	type Header,
 	type PaginationState,
 	type Row,
-	type SortingState,
 	type Updater,
 	useReactTable,
-	type VisibilityState,
 } from "@tanstack/react-table";
 import React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { DesktopList } from "./desktop-list";
-import { ListHeader } from "./list-header";
-import { MobileList } from "./mobile-list";
-import { NoData } from "./no-data";
-import { Pagination } from "./pagination";
-import { RecordsCount } from "./records-count";
-import {
-	type IDataTableRowAction,
-	RowActions,
-} from "./row-actions/row-actions";
+import { DesktopList } from "./desktop-list/desktop-list";
+import { ListHeader } from "./list-header/list-header";
+import { MobileList } from "./mobile-list/mobile-list";
+import { NoData } from "./no-data/no-data";
+import { Pagination } from "./pagination/pagination";
+import { RecordsCount } from "./records-count/records-count";
 
 export interface IDataTablePagination {
 	pageIndex: number;
@@ -37,7 +30,6 @@ interface IDataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 	searchBy?: string;
-	actions?: IDataTableRowAction<TData>[];
 	isLoading?: boolean;
 	showRecordsCount?: boolean;
 	pagination?: IDataTablePagination;
@@ -54,57 +46,24 @@ export function DataTable<TData, TValue>({
 	columns,
 	data,
 	searchBy,
-	actions,
 	isLoading = false,
 	showRecordsCount = false,
 	pagination,
 	loadingItems,
 }: IDataTableProps<TData, TValue>) {
-	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[],
 	);
-	const [columnVisibility, setColumnVisibility] =
-		React.useState<VisibilityState>({});
 	const contentRef = React.useRef<HTMLDivElement>(null);
 	const contentMobileRef = React.useRef<HTMLDivElement>(null);
 	const isMobile = useIsMobile();
 
-	const actionsColumn = React.useMemo<ColumnDef<TData> | null>(() => {
-		if (!actions) return null;
-		return {
-			id: "actions",
-			header: () => "Actions",
-			enableSorting: false,
-			enableHiding: false,
-			size: 12,
-			minSize: 12,
-			maxSize: 12,
-			meta: {
-				isActions: true,
-			},
-			cell: ({ row }) => (
-				<RowActions row={row.original} rowId={row.id} actions={actions} />
-			),
-		};
-	}, [actions]);
-
-	const finalColumns = React.useMemo(() => {
-		if (!actionsColumn) return columns;
-		return [...columns, actionsColumn];
-	}, [columns, actionsColumn]);
-
 	const table = useReactTable<TData>({
 		data,
-		columns: finalColumns,
+		columns,
 		getCoreRowModel: getCoreRowModel(),
-		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
-		onColumnVisibilityChange: setColumnVisibility,
-		enableColumnResizing: true,
-		columnResizeMode: "onEnd",
 		manualPagination: !!pagination,
 		pageCount: pagination?.totalPages,
 		onPaginationChange: pagination
@@ -119,9 +78,7 @@ export function DataTable<TData, TValue>({
 				}
 			: undefined,
 		state: {
-			sorting,
 			columnFilters,
-			columnVisibility,
 			...(pagination
 				? {
 						pagination: {

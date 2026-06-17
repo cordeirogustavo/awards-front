@@ -1,2 +1,2 @@
-export * from "./dashboard";
-export * from "./list";
+export * from "./dashboard/dashboard.page";
+export * from "./list/list.page";

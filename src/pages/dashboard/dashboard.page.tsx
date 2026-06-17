@@ -6,68 +6,67 @@ import type {
 	StudioCountPerWin,
 } from "@/api/generated/types";
 import type { YearWithMultipleWinners } from "@/api/generated/types/YearWithMultipleWinners";
-import { DashboardContainer, Page } from "@/components";
-import { DataTable } from "@/components/data-table";
-import { HeaderButton } from "@/components/data-table/header-button";
+import {
+	DashboardContainer,
+	DataTable,
+	HeaderButton,
+	Page,
+} from "@/components";
 import { useDashboardPage } from "./dashboard.hooks";
 
 const listYearsColumns: ColumnDef<YearWithMultipleWinners>[] = [
 	{
 		accessorKey: "year",
-		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+		header: () => <HeaderButton title="Year" />,
 	},
 	{
 		accessorKey: "winnerCount",
-		header: ({ column }) => <HeaderButton column={column} title="Win Count" />,
+		header: () => <HeaderButton title="Win Count" />,
 	},
 ];
 
 const topStudiosColumns: ColumnDef<StudioCountPerWin>[] = [
 	{
 		accessorKey: "name",
-		header: ({ column }) => <HeaderButton column={column} title="Name" />,
+		header: () => <HeaderButton title="Name" />,
 	},
 	{
 		accessorKey: "winCount",
-		header: ({ column }) => <HeaderButton column={column} title="Win Count" />,
+		header: () => <HeaderButton title="Win Count" />,
 	},
 ];
 
 const producersIntervalColumns: ColumnDef<ProducerWithInterval>[] = [
 	{
 		accessorKey: "producer",
-		header: ({ column }) => <HeaderButton column={column} title="Producer" />,
+		header: () => <HeaderButton title="Producer" />,
 	},
 	{
 		accessorKey: "interval",
-		header: ({ column }) => <HeaderButton column={column} title="Interval" />,
+		header: () => <HeaderButton title="Interval" />,
 	},
 	{
 		accessorKey: "previousWin",
-		header: ({ column }) => (
-			<HeaderButton column={column} title="Previous Year" />
-		),
+		header: () => <HeaderButton title="Previous Year" />,
 	},
 	{
 		accessorKey: "followingWin",
-		header: ({ column }) => (
-			<HeaderButton column={column} title="Following Year" />
-		),
+		header: () => <HeaderButton title="Following Year" />,
 	},
 ];
 
 const movieWinnerColumns: ColumnDef<MovieResponse>[] = [
 	{
 		accessorKey: "id",
-		header: ({ column }) => <HeaderButton column={column} title="Id" />,
+		header: () => <HeaderButton title="Id" />,
 	},
 	{
 		accessorKey: "year",
-		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+		header: () => <HeaderButton title="Year" />,
 	},
 	{
 		accessorKey: "title",
-		header: ({ column }) => <HeaderButton column={column} title="Title" />,
+		header: () => <HeaderButton title="Title" />,
 	},
 ];
 

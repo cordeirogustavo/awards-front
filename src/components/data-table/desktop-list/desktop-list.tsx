@@ -90,15 +90,6 @@ export function DesktopList<TData>({
 												header.column.columnDef.header,
 												header.getContext(),
 											)}
-
-									{header.column.getCanResize() && (
-										<button
-											type="button"
-											onMouseDown={header.getResizeHandler()}
-											onTouchStart={header.getResizeHandler()}
-											className="absolute top-0 right-0 h-full w-1 cursor-col-resize touch-none select-none bg-zinc-300 opacity-0 hover:opacity-100"
-										/>
-									)}
 								</TableHead>
 							))}
 						</TableRow>

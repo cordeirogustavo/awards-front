@@ -1,29 +1,27 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { MovieResponse } from "@/api/generated/types";
-import { Page } from "@/components";
-import { DataTable } from "@/components/data-table";
-import { HeaderButton } from "@/components/data-table/header-button";
+import { DataTable, HeaderButton, Page } from "@/components";
 import { useListPage } from "./list.hooks";
 import { LIST_PAGE_SIZE } from "./list.schemas";
 
 const listMoviesColumns: ColumnDef<MovieResponse>[] = [
 	{
 		accessorKey: "id",
-		header: ({ column }) => <HeaderButton column={column} title="ID" />,
+		header: () => <HeaderButton title="ID" />,
 		size: 60,
 	},
 	{
 		accessorKey: "year",
-		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+		header: () => <HeaderButton title="Year" />,
 		size: 80,
 	},
 	{
 		accessorKey: "title",
-		header: ({ column }) => <HeaderButton column={column} title="Title" />,
+		header: () => <HeaderButton title="Title" />,
 	},
 	{
 		accessorKey: "winner",
-		header: ({ column }) => <HeaderButton column={column} title="Winner" />,
+		header: () => <HeaderButton title="Winner" />,
 		cell: ({ row }) => (row.original.winner ? "Yes" : "No"),
 		size: 80,
 	},
