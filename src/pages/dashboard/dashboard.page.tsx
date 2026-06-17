@@ -1,13 +1,75 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import type { ColumnDef } from "@tanstack/react-table";
+import type {
+	MovieResponse,
+	ProducerWithInterval,
+	StudioCountPerWin,
+} from "@/api/generated/types";
+import type { YearWithMultipleWinners } from "@/api/generated/types/YearWithMultipleWinners";
 import { DashboardContainer, Page } from "@/components";
 import { DataTable } from "@/components/data-table";
-import {
-	ListMovieWinnerTableColumn,
-	ListYearsTableColumns,
-	ProducersWithIntervalsTableColumns,
-	TopThreeStudiosTableColumns,
-} from "./components";
+import { HeaderButton } from "@/components/data-table/header-button";
 import { useDashboardPage } from "./dashboard.hooks";
+
+const listYearsColumns: ColumnDef<YearWithMultipleWinners>[] = [
+	{
+		accessorKey: "year",
+		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+	},
+	{
+		accessorKey: "winnerCount",
+		header: ({ column }) => <HeaderButton column={column} title="Win Count" />,
+	},
+];
+
+const topStudiosColumns: ColumnDef<StudioCountPerWin>[] = [
+	{
+		accessorKey: "name",
+		header: ({ column }) => <HeaderButton column={column} title="Name" />,
+	},
+	{
+		accessorKey: "winCount",
+		header: ({ column }) => <HeaderButton column={column} title="Win Count" />,
+	},
+];
+
+const producersIntervalColumns: ColumnDef<ProducerWithInterval>[] = [
+	{
+		accessorKey: "producer",
+		header: ({ column }) => <HeaderButton column={column} title="Producer" />,
+	},
+	{
+		accessorKey: "interval",
+		header: ({ column }) => <HeaderButton column={column} title="Interval" />,
+	},
+	{
+		accessorKey: "previousWin",
+		header: ({ column }) => (
+			<HeaderButton column={column} title="Previous Year" />
+		),
+	},
+	{
+		accessorKey: "followingWin",
+		header: ({ column }) => (
+			<HeaderButton column={column} title="Following Year" />
+		),
+	},
+];
+
+const movieWinnerColumns: ColumnDef<MovieResponse>[] = [
+	{
+		accessorKey: "id",
+		header: ({ column }) => <HeaderButton column={column} title="Id" />,
+	},
+	{
+		accessorKey: "year",
+		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+	},
+	{
+		accessorKey: "title",
+		header: ({ column }) => <HeaderButton column={column} title="Title" />,
+	},
+];
 
 export const DashboardPage: React.FC = () => {
 	const {
@@ -39,7 +101,7 @@ export const DashboardPage: React.FC = () => {
 						<DataTable
 							title="List years with multiple winners"
 							data={yearsWithMultipleWinnersData}
-							columns={ListYearsTableColumns}
+							columns={listYearsColumns}
 							isLoading={isYearsWithMultipleWinnersLoading}
 							loadingItems={3}
 						/>
@@ -48,7 +110,7 @@ export const DashboardPage: React.FC = () => {
 						<DataTable
 							title="Top 3 studios with winners"
 							data={studiosWithWinCountData}
-							columns={TopThreeStudiosTableColumns}
+							columns={topStudiosColumns}
 							isLoading={isStudiosWithWinLoading}
 							loadingItems={3}
 						/>
@@ -60,14 +122,14 @@ export const DashboardPage: React.FC = () => {
 						<DataTable
 							title="Maximum"
 							data={maxIntervalProducersData}
-							columns={ProducersWithIntervalsTableColumns}
+							columns={producersIntervalColumns}
 							isLoading={isMaxMinProducersLoading}
 							loadingItems={1}
 						/>
 						<DataTable
 							title="Minimum"
 							data={minIntervalProducersData}
-							columns={ProducersWithIntervalsTableColumns}
+							columns={producersIntervalColumns}
 							isLoading={isMaxMinProducersLoading}
 							loadingItems={1}
 						/>
@@ -97,7 +159,7 @@ export const DashboardPage: React.FC = () => {
 						<DataTable
 							title=""
 							data={winnersByYearData}
-							columns={ListMovieWinnerTableColumn}
+							columns={movieWinnerColumns}
 							isLoading={isLoadingWinnersByYear}
 							loadingItems={5}
 						/>

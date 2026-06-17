@@ -1,8 +1,33 @@
+import type { ColumnDef } from "@tanstack/react-table";
+import type { MovieResponse } from "@/api/generated/types";
 import { Page } from "@/components";
 import { DataTable } from "@/components/data-table";
-import { ListMoviesTableColumns } from "./components";
+import { HeaderButton } from "@/components/data-table/header-button";
 import { useListPage } from "./list.hooks";
 import { LIST_PAGE_SIZE } from "./list.schemas";
+
+const listMoviesColumns: ColumnDef<MovieResponse>[] = [
+	{
+		accessorKey: "id",
+		header: ({ column }) => <HeaderButton column={column} title="ID" />,
+		size: 60,
+	},
+	{
+		accessorKey: "year",
+		header: ({ column }) => <HeaderButton column={column} title="Year" />,
+		size: 80,
+	},
+	{
+		accessorKey: "title",
+		header: ({ column }) => <HeaderButton column={column} title="Title" />,
+	},
+	{
+		accessorKey: "winner",
+		header: ({ column }) => <HeaderButton column={column} title="Winner" />,
+		cell: ({ row }) => (row.original.winner ? "Yes" : "No"),
+		size: 80,
+	},
+];
 
 export const ListPage: React.FC = () => {
 	const {
@@ -60,7 +85,7 @@ export const ListPage: React.FC = () => {
 					<DataTable
 						title="List movies"
 						data={moviesData}
-						columns={ListMoviesTableColumns}
+						columns={listMoviesColumns}
 						isLoading={isLoadingMovies}
 						pagination={{
 							pageIndex,
