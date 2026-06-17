@@ -13,15 +13,12 @@ export const Route = createFileRoute("/(public)/list")({
 	loader: async ({ context, deps }) => {
 		const { queryClient } = context;
 		queryClient.ensureQueryData(
-			findQueryOptions(
-				{
-					page: deps.page,
-					size: LIST_PAGE_SIZE,
-					year: deps.year,
-					winner: deps.winner,
-				},
-				{ skipLoading: true },
-			),
+			findQueryOptions({
+				page: deps.page,
+				size: LIST_PAGE_SIZE,
+				year: deps.year,
+				winner: deps.winner,
+			}),
 		);
 		return {};
 	},

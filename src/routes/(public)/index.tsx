@@ -5,11 +5,7 @@ import { DashboardPage } from "@/pages";
 export const Route = createFileRoute("/(public)/")({
 	loader: async ({ context }) => {
 		const { queryClient } = context;
-		queryClient.ensureQueryData(
-			findYearsWithMultipleWinnersQueryOptions({
-				skipLoading: true,
-			}),
-		);
+		queryClient.ensureQueryData(findYearsWithMultipleWinnersQueryOptions());
 		return {};
 	},
 	component: DashboardPage,

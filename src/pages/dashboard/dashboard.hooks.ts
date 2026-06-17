@@ -32,25 +32,18 @@ export const useDashboardPage = (): IDashboardHooks => {
 	const {
 		data: yearsWithMultipleWinners,
 		isLoading: isYearsWithMultipleWinnersLoading,
-	} = useFindYearsWithMultipleWinners({
-		client: { skipLoading: true },
-	});
+	} = useFindYearsWithMultipleWinners();
 
 	const { data: studiosWithWinCount, isLoading: isStudiosWithWinLoading } =
-		useFindStudiosWithWinCount({
-			client: { skipLoading: true },
-		});
+		useFindStudiosWithWinCount();
 
 	const { data: maxMinProducers, isLoading: isMaxMinProducersLoading } =
-		useFindMaxMinWinIntervalForProducers({
-			client: { skipLoading: true },
-		});
+		useFindMaxMinWinIntervalForProducers();
 
 	const { data: winnersByYearData, isLoading: isLoadingWinnersByYear } =
 		useFindWinnersByYear(
 			{ year: yearToSearch || 0 },
 			{
-				client: { skipLoading: true },
 				query: {
 					enabled: yearToSearch !== null,
 				},

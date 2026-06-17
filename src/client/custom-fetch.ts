@@ -1,7 +1,6 @@
 import { config } from "@/config/config";
 
 interface CustomFetchOptions extends RequestInit {
-	skipLoading?: boolean;
 	params?: Record<string, string | number | boolean>;
 }
 
@@ -23,7 +22,6 @@ export interface RequestConfig<TData = unknown> {
 	data?: TData | FormData;
 	headers?: HeadersInit;
 	signal?: AbortSignal;
-	skipLoading?: boolean;
 }
 
 export interface ResponseConfig<TData = unknown> {
@@ -46,15 +44,7 @@ export const client = async <
 	config: RequestConfig<TVariables>,
 ): Promise<ResponseConfig<TData>> => {
 	try {
-		const {
-			url = "",
-			method = "GET",
-			data,
-			params,
-			headers,
-			signal,
-			skipLoading,
-		} = config;
+		const { url = "", method = "GET", data, params, headers, signal } = config;
 
 		const response = await customFetch<TData>(url, {
 			method,
@@ -66,7 +56,6 @@ export const client = async <
 						: undefined,
 			headers,
 			signal,
-			skipLoading,
 			params,
 		});
 
@@ -95,16 +84,11 @@ export async function customFetch<T = unknown>(
 	input: RequestInfo,
 	init?: CustomFetchOptions,
 ): Promise<FetchResponse<T>> {
-	const { skipLoading = false, params, ...fetchOptions } = init || {};
+	const { params, ...fetchOptions } = init || {};
 
-	const loadingElement = !skipLoading
-		? document.getElementById("loading")
-		: null;
 	const baseUrl = config.apiBaseUrl;
 
 	try {
-		loadingElement?.classList.remove("hidden");
-
 		const headers = new Headers(fetchOptions?.headers || {});
 
 		if (fetchOptions?.body && !(fetchOptions.body instanceof FormData)) {
@@ -152,7 +136,5 @@ export async function customFetch<T = unknown>(
 			return Promise.reject(error);
 		}
 		throw error;
-	} finally {
-		loadingElement?.classList.add("hidden");
 	}
 }

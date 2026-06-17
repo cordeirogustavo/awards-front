@@ -53,17 +53,12 @@ export const useListPage = (): IListPageHooks => {
 		});
 	}, [debouncedFilters, navigate]);
 
-	const { data: moviesPage, isLoading: isLoadingMovies } = useFindMovies(
-		{
-			page: search.page,
-			size: LIST_PAGE_SIZE,
-			year: search.year,
-			winner: search.winner,
-		},
-		{
-			client: { skipLoading: true },
-		},
-	);
+	const { data: moviesPage, isLoading: isLoadingMovies } = useFindMovies({
+		page: search.page,
+		size: LIST_PAGE_SIZE,
+		year: search.year,
+		winner: search.winner,
+	});
 
 	const onPageChange = React.useCallback(
 		(pageIndex: number) => {
