@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { useFind as useFindMovies } from "@/api/generated";
+import { useMovies as useFindMovies } from "@/api/hooks";
 import { mockQueryResult } from "@/tests/mock-query";
 import { LIST_PAGE_SIZE } from "../list.schemas";
 
@@ -16,8 +16,8 @@ vi.mock("@tanstack/react-router", () => ({
 	}),
 }));
 
-vi.mock("@/api/generated", () => ({
-	useFind: vi.fn(),
+vi.mock("@/api/hooks", () => ({
+	useMovies: vi.fn(),
 }));
 
 const mockedUseFindMovies = vi.mocked(useFindMovies);

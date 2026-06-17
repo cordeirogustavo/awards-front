@@ -4,8 +4,8 @@ import type {
 	MovieResponse,
 	ProducerWithInterval,
 	StudioCountPerWin,
-} from "@/api/generated/types";
-import type { YearWithMultipleWinners } from "@/api/generated/types/YearWithMultipleWinners";
+	YearWithMultipleWinners,
+} from "@/api/types";
 import {
 	DashboardContainer,
 	DataTable,

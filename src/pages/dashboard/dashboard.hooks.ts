@@ -1,14 +1,16 @@
 import React from "react";
 import {
-	type MovieResponse,
-	type ProducerWithInterval,
-	type StudioCountPerWin,
-	useFindMaxMinWinIntervalForProducers,
-	useFindStudiosWithWinCount,
-	useFindWinnersByYear,
-	useFindYearsWithMultipleWinners,
-	type YearWithMultipleWinners,
-} from "@/api/generated";
+	useMaxMinWinInterval,
+	useStudiosWithWinCount,
+	useWinnersByYear,
+	useYearsWithMultipleWinners,
+} from "@/api/hooks";
+import type {
+	MovieResponse,
+	ProducerWithInterval,
+	StudioCountPerWin,
+	YearWithMultipleWinners,
+} from "@/api/types";
 import { searchByYearSchema } from "./dashboard.schemas";
 
 export interface IDashboardHooks {
@@ -32,22 +34,18 @@ export const useDashboardPage = (): IDashboardHooks => {
 	const {
 		data: yearsWithMultipleWinners,
 		isLoading: isYearsWithMultipleWinnersLoading,
-	} = useFindYearsWithMultipleWinners();
+	} = useYearsWithMultipleWinners();
 
 	const { data: studiosWithWinCount, isLoading: isStudiosWithWinLoading } =
-		useFindStudiosWithWinCount();
+		useStudiosWithWinCount();
 
 	const { data: maxMinProducers, isLoading: isMaxMinProducersLoading } =
-		useFindMaxMinWinIntervalForProducers();
+		useMaxMinWinInterval();
 
 	const { data: winnersByYearData, isLoading: isLoadingWinnersByYear } =
-		useFindWinnersByYear(
+		useWinnersByYear(
 			{ year: yearToSearch || 0 },
-			{
-				query: {
-					enabled: yearToSearch !== null,
-				},
-			},
+			{ query: { enabled: yearToSearch !== undefined } },
 		);
 
 	const topStudios = React.useMemo(() => {

@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { MovieResponse } from "@/api/generated/types";
+import type { MovieResponse } from "@/api/types";
 import { DataTable, HeaderButton, Page } from "@/components";
 import { useListPage } from "./list.hooks";
 import { LIST_PAGE_SIZE } from "./list.schemas";

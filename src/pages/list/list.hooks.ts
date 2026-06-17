@@ -1,16 +1,13 @@
 import { getRouteApi } from "@tanstack/react-router";
 import React from "react";
-import {
-	type MovieResponse,
-	type TFindQueryParams,
-	useFind as useFindMovies,
-} from "@/api/generated";
+import { useMovies } from "@/api/hooks";
+import type { MovieResponse, MoviesParams } from "@/api/types";
 import { useDebounce } from "@/hooks";
 import { LIST_PAGE_SIZE } from "./list.schemas";
 
 const routeApi = getRouteApi("/(public)/list");
 
-type IMoviesFilters = Pick<TFindQueryParams, "year" | "winner">;
+type IMoviesFilters = Pick<MoviesParams, "year" | "winner">;
 
 export interface IListPageHooks {
 	moviesData: MovieResponse[];
@@ -19,8 +16,8 @@ export interface IListPageHooks {
 	pageSize: number;
 	totalPages: number;
 	onPageChange: (pageIndex: number) => void;
-	yearFilter: TFindQueryParams["year"];
-	winnerFilter: TFindQueryParams["winner"];
+	yearFilter: MoviesParams["year"];
+	winnerFilter: MoviesParams["winner"];
 	onYearFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onWinnerFilterChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -53,7 +50,7 @@ export const useListPage = (): IListPageHooks => {
 		});
 	}, [debouncedFilters, navigate]);
 
-	const { data: moviesPage, isLoading: isLoadingMovies } = useFindMovies({
+	const { data: moviesPage, isLoading: isLoadingMovies } = useMovies({
 		page: search.page,
 		size: LIST_PAGE_SIZE,
 		year: search.year,

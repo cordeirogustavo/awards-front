@@ -1,52 +1,50 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
-	useFindMaxMinWinIntervalForProducers,
-	useFindStudiosWithWinCount,
-	useFindWinnersByYear,
-	useFindYearsWithMultipleWinners,
-} from "@/api/generated";
+	useMaxMinWinInterval,
+	useStudiosWithWinCount,
+	useWinnersByYear,
+	useYearsWithMultipleWinners,
+} from "@/api/hooks";
 import { mockQueryResult } from "@/tests/mock-query";
 import { useDashboardPage } from "../dashboard.hooks";
 
-vi.mock("@/api/generated", () => ({
-	useFindYearsWithMultipleWinners: vi.fn(),
-	useFindStudiosWithWinCount: vi.fn(),
-	useFindMaxMinWinIntervalForProducers: vi.fn(),
-	useFindWinnersByYear: vi.fn(),
+vi.mock("@/api/hooks", () => ({
+	useYearsWithMultipleWinners: vi.fn(),
+	useStudiosWithWinCount: vi.fn(),
+	useMaxMinWinInterval: vi.fn(),
+	useWinnersByYear: vi.fn(),
 }));
 
-const mockedUseFindYearsWithMultipleWinners = vi.mocked(
-	useFindYearsWithMultipleWinners,
+const mockedUseYearsWithMultipleWinners = vi.mocked(
+	useYearsWithMultipleWinners,
 );
-const mockedUseFindStudiosWithWinCount = vi.mocked(useFindStudiosWithWinCount);
-const mockedUseFindMaxMinWinIntervalForProducers = vi.mocked(
-	useFindMaxMinWinIntervalForProducers,
-);
-const mockedUseFindWinnersByYear = vi.mocked(useFindWinnersByYear);
+const mockedUseStudiosWithWinCount = vi.mocked(useStudiosWithWinCount);
+const mockedUseMaxMinWinInterval = vi.mocked(useMaxMinWinInterval);
+const mockedUseWinnersByYear = vi.mocked(useWinnersByYear);
 
 describe("useDashboardPage", () => {
 	beforeEach(() => {
-		mockedUseFindYearsWithMultipleWinners.mockReturnValue(
-			mockQueryResult<typeof useFindYearsWithMultipleWinners>({
+		mockedUseYearsWithMultipleWinners.mockReturnValue(
+			mockQueryResult<typeof useYearsWithMultipleWinners>({
 				data: undefined,
 				isLoading: false,
 			}),
 		);
-		mockedUseFindStudiosWithWinCount.mockReturnValue(
-			mockQueryResult<typeof useFindStudiosWithWinCount>({
+		mockedUseStudiosWithWinCount.mockReturnValue(
+			mockQueryResult<typeof useStudiosWithWinCount>({
 				data: undefined,
 				isLoading: false,
 			}),
 		);
-		mockedUseFindMaxMinWinIntervalForProducers.mockReturnValue(
-			mockQueryResult<typeof useFindMaxMinWinIntervalForProducers>({
+		mockedUseMaxMinWinInterval.mockReturnValue(
+			mockQueryResult<typeof useMaxMinWinInterval>({
 				data: undefined,
 				isLoading: false,
 			}),
 		);
-		mockedUseFindWinnersByYear.mockReturnValue(
-			mockQueryResult<typeof useFindWinnersByYear>({
+		mockedUseWinnersByYear.mockReturnValue(
+			mockQueryResult<typeof useWinnersByYear>({
 				data: undefined,
 				isLoading: false,
 			}),
@@ -68,8 +66,8 @@ describe("useDashboardPage", () => {
 			{ year: 2015, winnerCount: 2 },
 			{ year: 2016, winnerCount: 3 },
 		];
-		mockedUseFindYearsWithMultipleWinners.mockReturnValue(
-			mockQueryResult<typeof useFindYearsWithMultipleWinners>({
+		mockedUseYearsWithMultipleWinners.mockReturnValue(
+			mockQueryResult<typeof useYearsWithMultipleWinners>({
 				data: { years },
 				isLoading: false,
 			}),
@@ -88,8 +86,8 @@ describe("useDashboardPage", () => {
 			{ name: "D", winCount: 7 },
 			{ name: "E", winCount: 1 },
 		];
-		mockedUseFindStudiosWithWinCount.mockReturnValue(
-			mockQueryResult<typeof useFindStudiosWithWinCount>({
+		mockedUseStudiosWithWinCount.mockReturnValue(
+			mockQueryResult<typeof useStudiosWithWinCount>({
 				data: { studios },
 				isLoading: false,
 			}),
@@ -111,8 +109,8 @@ describe("useDashboardPage", () => {
 		const min = [
 			{ producer: "P2", interval: 1, previousWin: 2005, followingWin: 2006 },
 		];
-		mockedUseFindMaxMinWinIntervalForProducers.mockReturnValue(
-			mockQueryResult<typeof useFindMaxMinWinIntervalForProducers>({
+		mockedUseMaxMinWinInterval.mockReturnValue(
+			mockQueryResult<typeof useMaxMinWinInterval>({
 				data: { max, min },
 				isLoading: false,
 			}),
@@ -159,7 +157,7 @@ describe("useDashboardPage", () => {
 
 		expect(setCustomValiditySpy).toHaveBeenCalledWith("");
 
-		const lastCall = mockedUseFindWinnersByYear.mock.calls.at(-1);
+		const lastCall = mockedUseWinnersByYear.mock.calls.at(-1);
 		expect(lastCall?.[0]).toEqual({ year: 2010 });
 	});
 });

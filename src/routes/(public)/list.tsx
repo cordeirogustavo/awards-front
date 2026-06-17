@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { findQueryOptions } from "@/api/generated";
+import { moviesQueryOptions } from "@/api/hooks";
 import { ListPage } from "@/pages";
 import { LIST_PAGE_SIZE, listSearchSchema } from "@/pages/list/list.schemas";
 
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/(public)/list")({
 	loader: async ({ context, deps }) => {
 		const { queryClient } = context;
 		queryClient.ensureQueryData(
-			findQueryOptions({
+			moviesQueryOptions({
 				page: deps.page,
 				size: LIST_PAGE_SIZE,
 				year: deps.year,

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { findYearsWithMultipleWinnersQueryOptions } from "@/api/generated";
+import { yearsWithMultipleWinnersQueryOptions } from "@/api/hooks";
 import { DashboardPage } from "@/pages";
 
 export const Route = createFileRoute("/(public)/")({
 	loader: async ({ context }) => {
 		const { queryClient } = context;
-		queryClient.ensureQueryData(findYearsWithMultipleWinnersQueryOptions());
+		queryClient.ensureQueryData(yearsWithMultipleWinnersQueryOptions());
 		return {};
 	},
 	component: DashboardPage,
